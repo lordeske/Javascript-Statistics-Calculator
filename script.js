@@ -3,7 +3,7 @@ const getMean = (array) =>array.reduce((acc, el)=> acc + el,0)/array.length;
 
 const getMedian = (array) => {
 
-    const sorted = array.sort((a, b) => a - b);
+    const sorted = array.slice().sort((a, b) => a - b);
     const median =
       array.length % 2 === 0
         ? getMean([sorted[array.length / 2], sorted[array.length / 2 - 1]])
@@ -36,6 +36,35 @@ const getMode = (array) => {
 }
 
 
+const getRange = (array)=>
+{
+    return Math.max(...array) - Math.min(...array);
+}
+
+
+const getVariance = (array) => {
+    const mean = getMean(array);
+
+    const variance = array.reduce((acc, el) => {
+      const difference = el - mean;
+      const squared = difference ** 2;
+      return acc + squared;
+    }, 0) / array.length;
+    return variance;
+}
+
+const getStandardDeviation = (array)=>
+{
+
+    const variance = getVariance(array);
+
+    const standardVariance = Math.sqrt(variance);
+    return standardVariance;
+
+
+}
+
+
 
 const calculate = () => {
 
@@ -53,6 +82,17 @@ document.querySelector("#median").textContent = median;
 
 const mode = getMode(numbers);
 document.querySelector("#mode").textContent = median;
+
+const range = getRange(numbers);
+document.querySelector("#range").textContent = range;
+
+const variance = getVariance(numbers);
+document.querySelector("#variance").textContent = variance;
+
+const standardDeviation = getStandardDeviation(numbers);
+document.querySelector("#standardDeviation").textContent = standardDeviation;
+
+
 
 
 }
